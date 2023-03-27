@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import AnimatedCursor from "react-animated-cursor";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import HomePage from "./routes/homePage";
+
+import RouteTransition from "./utils/routeTransition";
+import hideLoader from "./utils/hideLoader";
+
+export default function App() {
+    useEffect(hideLoader, []);
+
+    return (
+        <>
+            <AnimatedCursor innerSize={10} outerSize={50} outerScale={2} color='237, 46, 68' />
+            <Routes>
+                <Route element={<RouteTransition />}>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Route>
+            </Routes>
+        </>
+    );
 }
-
-export default App;
